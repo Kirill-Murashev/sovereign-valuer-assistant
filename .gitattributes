@@ -1,5 +1,5 @@
-# Normalize line endings for cross-platform clones (prevents “collapsed” diffs & CI drift).
-* text=auto
+# Store text files with LF in the Git index so clones and GitHub “raw” stay multi-line.
+* text=auto eol=lf
 
 *.py text eol=lf
 *.md text eol=lf
@@ -9,3 +9,9 @@
 *.toml text eol=lf
 *.json text eol=lf
 *.sh text eol=lf
+
+# Root dotfiles (patterns above still apply; listed here for clarity)
+.gitattributes text eol=lf
+.editorconfig text eol=lf
+.env.example text eol=lf
+.gitignore text eol=lf
