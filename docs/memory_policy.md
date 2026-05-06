@@ -1,9 +1,9 @@
-# Memory Policy (v0.1 Draft)
+# Memory Policy (Current Draft)
 
-Memory in v0.1 is file-based, explicit, and user-controlled.
+Memory is file-based, explicit, and user-controlled.
 
-- Permanent memory is read from markdown files in `memory/`.
-- Automatic memory writes are disabled.
-- Candidate memory entries should be reviewed before approval.
-- Retrieved knowledge and memory remain separate.
+- Current stage is read-only for memory (`memory/` files are loaded, not written automatically).
+- Permanent memory must be explicitly approved by the user.
+- Uncontrolled self-learning is prohibited.
+- Retrieved RAG context is source material and is not permanent memory.
 - Sensitive real-world client data must not be stored in this repository.

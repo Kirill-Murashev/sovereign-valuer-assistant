@@ -1,12 +1,20 @@
-# Architecture (v0.1 Draft)
+# Architecture (Current Draft)
 
-Sovereign Valuer Assistant v0.1 uses a simple local-first Python architecture:
+Current implemented pipeline:
 
-1. `app/main.py` loads settings, memory, and skills.
-2. `app/llm.py` isolates provider-specific LLM integration (placeholder now).
-3. `app/rag.py` contains deterministic document loading/chunking placeholders.
-4. `memory/` stores explicit approved memory files.
-5. `skills/` stores human-readable YAML skill definitions.
-6. `knowledge_base/` stores local source documents for future RAG.
+`CLI`
+→ `settings` (`app/config.py`)
+→ `memory loader` (`app/memory.py`)
+→ `skill loader` (`app/skills.py`)
+→ `optional local RAG` (`app/rag.py`, enabled with `--use-rag`)
+→ `prompt builder` (`app/prompting.py`)
+→ `GigaChat LLM client` (`app/llm.py`)
 
-No heavy orchestration framework is used at this stage.
+Current limitations:
+
+- no embeddings;
+- no vector database;
+- no memory writes (read-only memory flow);
+- no Data Layer tool implemented yet.
+
+The architecture remains simple, local-first, and inspectable.

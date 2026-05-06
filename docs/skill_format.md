@@ -1,4 +1,4 @@
-# Skill Format (v0.1 Draft)
+# Skill Format (Current Draft)
 
 Skills are stored as YAML files under `skills/`.
 
@@ -12,3 +12,10 @@ Optional fields:
 - `required_tools` (list)
 
 Validation is performed by `app/skills.py`. Invalid files raise clear exceptions.
+
+First implemented skill:
+- `skills/report_review.yaml`
+
+Supported template variables in `user_prompt_template`:
+- `{report_text}` (normalized internally to user input)
+- `{user_input}`

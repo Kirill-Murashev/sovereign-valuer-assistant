@@ -643,15 +643,19 @@ Current status:
 
 ```text
 The repository sovereign-valuer-assistant/ has been created.
-The initial v0.1 repository skeleton is implemented.
-Core modules, documentation drafts, and deterministic baseline tests exist.
-Cursor is used as the implementation executor for small coding tasks.
+The initial skeleton and core v0.2 draft flow are implemented.
+GigaChat smoke test works with valid credentials and a suitable network route.
+The report_review skill runner is implemented.
+--use-rag local knowledge context for skill runs is implemented.
+Current RAG is deterministic keyword retrieval over local .md/.txt files, not vector search.
+Transparent RAG source output is implemented in CLI.
+The project remains a non-production local-first draft.
 ```
 
 Next recommended implementation step:
 
 ```text
-Apply small consistency and quality improvements (configuration naming, CI, and project hygiene files).
+Continue controlled v0.2/v0.3 improvements: approved memory proposal workflow, first Data Layer tool, and additional valuation skills.
 ```
 
 ---

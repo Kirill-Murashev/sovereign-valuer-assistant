@@ -26,9 +26,11 @@ Implemented:
 - skill loading;
 - memory loading;
 - minimal GigaChat SDK client;
-- optional LLM smoke test;
+- optional `--smoke-llm`;
 - CLI skill runner for report_review;
-- placeholder RAG module;
+- `--use-rag` local knowledge context for skill runs;
+- simple source-aware local RAG over `.md`/`.txt` files;
+- transparent retrieved source output in CLI (`--show-rag-context` for full context);
 - deterministic tests.
 - GitHub Actions test workflow;
 - Apache License 2.0 (`LICENSE`);
@@ -36,10 +38,10 @@ Implemented:
 
 ## Next Steps
 
-1. Add first local RAG workflow.
-2. Add approved memory proposal workflow.
-3. Add first Data Layer tool.
-4. Add more valuation skills.
+1. Add approved memory proposal workflow.
+2. Add first Data Layer tool.
+3. Add more valuation skills.
+4. Improve deterministic local RAG quality while keeping it inspectable.
 
 ---
 
@@ -571,7 +573,7 @@ Recommended immediate next steps:
 
 The initial repository skeleton has already been created.
 
-1. Add first local RAG workflow.
-2. Add approved memory proposal workflow.
-3. Add first Data Layer tool.
-4. Add more valuation skills.
+1. Add approved memory proposal workflow.
+2. Add first Data Layer tool.
+3. Add more valuation skills.
+4. Improve deterministic local RAG quality while keeping it inspectable.
