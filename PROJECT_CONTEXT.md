@@ -642,22 +642,16 @@ Minimum expected result:
 Current status:
 
 ```text
-The local directory sovereign-valuer-assistant/ has been created.
-AGENTS.md has been generated.
-PROJECT_CONTEXT.md is being generated.
-Cursor will be used as the implementation executor.
-```
-
-Next recommended file:
-
-```text
-README.md
+The repository sovereign-valuer-assistant/ has been created.
+The initial v0.1 repository skeleton is implemented.
+Core modules, documentation drafts, and deterministic baseline tests exist.
+Cursor is used as the implementation executor for small coding tasks.
 ```
 
 Next recommended implementation step:
 
 ```text
-Create the initial repository skeleton and placeholder files.
+Apply small consistency and quality improvements (configuration naming, CI, and project hygiene files).
 ```
 
 ---

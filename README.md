@@ -14,11 +14,29 @@ The default target LLM is **GigaChat**.
 
 ## Project Status
 
-Current status: **early planning / repository skeleton stage**.
+## Current Status
 
-This repository is not yet a production-ready tool.
+The initial repository skeleton has been created.
 
-The initial goal is to build a small, inspectable local assistant before adding more complex agentic workflows or infrastructure.
+Implemented:
+
+- project documentation;
+- basic Python app structure;
+- configuration loading;
+- skill loading;
+- memory loading;
+- placeholder LLM client;
+- placeholder RAG module;
+- deterministic tests.
+
+## Next Steps
+
+1. Fix configuration variable naming consistency.
+2. Add GitHub Actions for tests.
+3. Add LICENSE.
+4. Add CONTRIBUTING.md.
+5. Add first real GigaChat integration.
+6. Add first local RAG workflow.
 
 ---
 
@@ -512,12 +530,11 @@ All outputs must be reviewed and approved by a qualified professional before use
 
 Recommended immediate next steps:
 
-1. Create the initial repository structure.
-2. Add `.gitignore`.
-3. Add `.env.example`.
-4. Add `requirements.txt`.
-5. Add a minimal `app/config.py`.
-6. Add a minimal `app/main.py`.
-7. Add a first example skill in `skills/report_review.yaml`.
-8. Add initial memory files in `memory/`.
-9. Add basic tests for configuration, skill loading, and memory loading.
+The initial repository skeleton has already been created.
+
+1. Fix configuration naming consistency.
+2. Add GitHub Actions test workflow.
+3. Add `LICENSE`.
+4. Add `CONTRIBUTING.md`.
+5. Add first real GigaChat integration.
+6. Add first local RAG workflow.
