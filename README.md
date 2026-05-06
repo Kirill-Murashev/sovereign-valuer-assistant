@@ -25,7 +25,9 @@ Implemented:
 - configuration loading;
 - skill loading;
 - memory loading;
-- placeholder LLM client;
+- minimal GigaChat SDK client;
+- optional LLM smoke test;
+- CLI skill runner for report_review;
 - placeholder RAG module;
 - deterministic tests.
 - GitHub Actions test workflow;
@@ -34,10 +36,10 @@ Implemented:
 
 ## Next Steps
 
-1. Add first real GigaChat integration.
-2. Add first local RAG workflow.
-3. Add approved memory proposal workflow.
-4. Add first Data Layer tool.
+1. Add first local RAG workflow.
+2. Add approved memory proposal workflow.
+3. Add first Data Layer tool.
+4. Add more valuation skills.
 
 ---
 
@@ -513,6 +515,17 @@ python -m app.main --run-skill report_review --input-file examples/sample_report
 This requires `GIGACHAT_CREDENTIALS` in `.env`.
 Use only synthetic or anonymized input examples.
 
+### Run a skill with local RAG
+
+Example:
+
+```bash
+python -m app.main --run-skill report_review --input-file examples/sample_report_fragment.md --use-rag
+```
+
+Current RAG is simple deterministic keyword retrieval over local `.md`/`.txt` files.
+Vector search and embeddings are intentionally postponed.
+
 A future `.env.example` may include:
 
 ```env
@@ -551,7 +564,7 @@ Recommended immediate next steps:
 
 The initial repository skeleton has already been created.
 
-1. Add first real GigaChat integration.
-2. Add first local RAG workflow.
-3. Add approved memory proposal workflow.
-4. Add first Data Layer tool.
+1. Add first local RAG workflow.
+2. Add approved memory proposal workflow.
+3. Add first Data Layer tool.
+4. Add more valuation skills.

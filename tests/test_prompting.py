@@ -26,6 +26,22 @@ def test_build_skill_prompt_with_user_input_placeholder():
     assert user_prompt == "User says: Hello"
 
 
+def test_build_skill_prompt_with_retrieved_context():
+    skill = {
+        "system_prompt": "System base",
+        "user_prompt_template": "User says: {user_input}",
+    }
+    system_prompt, _ = build_skill_prompt(
+        skill=skill,
+        memory_text="Memory block",
+        user_input="Hello",
+        retrieved_context="Source: x.md | Chunk: 0\nContext text",
+    )
+    assert "Retrieved knowledge context" in system_prompt
+    assert "not approved memory" in system_prompt
+    assert "Source: x.md | Chunk: 0" in system_prompt
+
+
 def test_build_skill_prompt_unsupported_placeholder():
     skill = {
         "system_prompt": "System base",

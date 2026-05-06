@@ -1,4 +1,4 @@
-"""Simple deterministic placeholders for local RAG pipeline."""
+"""Simple deterministic local RAG helpers."""
 
 from __future__ import annotations
 
@@ -23,43 +23,73 @@ def load_documents(knowledge_base_dir: str | Path) -> list[dict[str, str]]:
     return documents
 
 
-def chunk_text(text: str, chunk_size: int = 800, chunk_overlap: int = 100) -> list[str]:
-    """Create deterministic overlapping chunks from plain text."""
+def chunk_documents(
+    documents: list[dict[str, str]], chunk_size: int = 800, chunk_overlap: int = 100
+) -> list[dict[str, str | int]]:
+    """Create deterministic overlapping chunks with source metadata."""
     if chunk_size <= 0:
         raise ValueError("chunk_size must be greater than 0")
     if chunk_overlap < 0:
         raise ValueError("chunk_overlap must be >= 0")
     if chunk_overlap >= chunk_size:
         raise ValueError("chunk_overlap must be smaller than chunk_size")
-    if not text:
-        return []
-
-    chunks: list[str] = []
+    chunks: list[dict[str, str | int]] = []
     step = chunk_size - chunk_overlap
-    for start in range(0, len(text), step):
-        end = start + chunk_size
-        chunk = text[start:end]
-        if chunk:
-            chunks.append(chunk)
-        if end >= len(text):
-            break
+    for document in documents:
+        text = document.get("text", "")
+        source = str(document.get("source", "unknown"))
+        if not isinstance(text, str) or not text:
+            continue
+        chunk_id = 0
+        for start in range(0, len(text), step):
+            end = start + chunk_size
+            chunk_text = text[start:end]
+            if chunk_text:
+                chunks.append(
+                    {
+                        "source": source,
+                        "chunk_id": chunk_id,
+                        "text": chunk_text,
+                    }
+                )
+                chunk_id += 1
+            if end >= len(text):
+                break
     return chunks
 
 
-def retrieve(query: str, chunks: list[str], top_k: int = 5) -> list[str]:
-    """Return top chunks by simple keyword overlap score."""
+def retrieve(
+    query: str, chunks: list[dict[str, str | int]], top_k: int = 5
+) -> list[dict[str, str | int]]:
+    """Return top chunks by deterministic keyword overlap."""
     if top_k <= 0:
         raise ValueError("top_k must be greater than 0")
     if not query or not chunks:
         return []
 
     query_terms = {term.lower() for term in query.split() if term.strip()}
-    scored: list[tuple[int, str]] = []
+    scored: list[tuple[int, dict[str, str | int]]] = []
     for chunk in chunks:
-        terms = set(chunk.lower().split())
+        text = chunk.get("text", "")
+        if not isinstance(text, str):
+            continue
+        terms = set(text.lower().split())
         score = len(query_terms & terms)
         scored.append((score, chunk))
 
     scored.sort(key=lambda item: item[0], reverse=True)
     return [chunk for score, chunk in scored if score > 0][:top_k]
+
+
+def format_retrieved_context(chunks: list[dict[str, str | int]]) -> str:
+    """Format retrieved chunks into a readable source-aware block."""
+    if not chunks:
+        return ""
+    lines: list[str] = []
+    for chunk in chunks:
+        source = chunk.get("source", "unknown")
+        chunk_id = chunk.get("chunk_id", "unknown")
+        text = str(chunk.get("text", "")).strip()
+        lines.append(f"Source: {source} | Chunk: {chunk_id}\n{text}")
+    return "\n\n".join(lines)
 

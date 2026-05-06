@@ -12,6 +12,7 @@ from app.config import get_settings
 from app.llm import LLMClient, LLMConfigurationError
 from app.memory import format_memory_for_prompt, load_memory
 from app.prompting import build_skill_prompt
+from app.rag import chunk_documents, format_retrieved_context, load_documents, retrieve
 from app.skills import get_skill_by_name, load_skills
 
 
@@ -24,6 +25,11 @@ def main() -> None:
     )
     parser.add_argument("--run-skill", type=str, help="Run a loaded skill by name.")
     parser.add_argument("--input-file", type=str, help="Path to UTF-8 input file.")
+    parser.add_argument(
+        "--use-rag",
+        action="store_true",
+        help="Include simple local RAG context from knowledge_base.",
+    )
     args = parser.parse_args()
 
     console = Console()
@@ -79,8 +85,23 @@ def main() -> None:
         try:
             selected_skill = get_skill_by_name(skills, args.run_skill)
             memory_text = format_memory_for_prompt(memory)
+            retrieved_context = ""
+            if args.use_rag:
+                documents = load_documents(settings.knowledge_base_dir)
+                chunks = chunk_documents(
+                    documents,
+                    chunk_size=settings.chunk_size,
+                    chunk_overlap=settings.chunk_overlap,
+                )
+                retrieved_chunks = retrieve(user_input, chunks, top_k=settings.top_k)
+                if not retrieved_chunks:
+                    console.print(
+                        "[yellow]RAG warning:[/yellow] No retrieved context found in knowledge base."
+                    )
+                else:
+                    retrieved_context = format_retrieved_context(retrieved_chunks)
             system_prompt, user_prompt = build_skill_prompt(
-                selected_skill, memory_text, user_input
+                selected_skill, memory_text, user_input, retrieved_context=retrieved_context
             )
             result = llm_client.generate(system_prompt=system_prompt, user_prompt=user_prompt)
         except ValueError as exc:
