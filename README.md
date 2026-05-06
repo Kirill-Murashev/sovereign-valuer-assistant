@@ -523,6 +523,13 @@ Example:
 python -m app.main --run-skill report_review --input-file examples/sample_report_fragment.md --use-rag
 ```
 
+Optional (show full retrieved context):
+
+```bash
+python -m app.main --run-skill report_review --input-file examples/sample_report_fragment.md --use-rag --show-rag-context
+```
+
+Retrieved sources are shown before the LLM response to support verification.
 Current RAG is simple deterministic keyword retrieval over local `.md`/`.txt` files.
 Vector search and embeddings are intentionally postponed.
 

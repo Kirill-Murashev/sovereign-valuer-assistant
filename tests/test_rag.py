@@ -1,4 +1,10 @@
-from app.rag import chunk_documents, format_retrieved_context, load_documents, retrieve
+from app.rag import (
+    chunk_documents,
+    format_retrieved_context,
+    format_retrieved_sources,
+    load_documents,
+    retrieve,
+)
 
 
 def test_load_documents_reads_md_and_txt(tmp_path):
@@ -34,3 +40,17 @@ def test_format_retrieved_context():
     text = format_retrieved_context(chunks)
     assert "Source: a.md | Chunk: 2" in text
     assert "sample context" in text
+
+
+def test_format_retrieved_sources():
+    chunks = [
+        {"source": "a.md", "chunk_id": 0, "text": "alpha"},
+        {"source": "b.md", "chunk_id": 3, "text": "beta"},
+    ]
+    text = format_retrieved_sources(chunks)
+    assert "1. a.md | chunk 0" in text
+    assert "2. b.md | chunk 3" in text
+
+
+def test_format_retrieved_sources_empty():
+    assert format_retrieved_sources([]) == ""

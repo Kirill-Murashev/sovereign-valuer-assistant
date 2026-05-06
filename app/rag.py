@@ -93,3 +93,15 @@ def format_retrieved_context(chunks: list[dict[str, str | int]]) -> str:
         lines.append(f"Source: {source} | Chunk: {chunk_id}\n{text}")
     return "\n\n".join(lines)
 
+
+def format_retrieved_sources(chunks: list[dict[str, str | int]]) -> str:
+    """Format retrieved chunk sources as concise one-line references."""
+    if not chunks:
+        return ""
+    lines: list[str] = []
+    for index, chunk in enumerate(chunks, start=1):
+        source = chunk.get("source", "unknown")
+        chunk_id = chunk.get("chunk_id", "unknown")
+        lines.append(f"{index}. {source} | chunk {chunk_id}")
+    return "\n".join(lines)
+

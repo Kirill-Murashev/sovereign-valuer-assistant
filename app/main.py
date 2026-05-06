@@ -12,7 +12,13 @@ from app.config import get_settings
 from app.llm import LLMClient, LLMConfigurationError
 from app.memory import format_memory_for_prompt, load_memory
 from app.prompting import build_skill_prompt
-from app.rag import chunk_documents, format_retrieved_context, load_documents, retrieve
+from app.rag import (
+    chunk_documents,
+    format_retrieved_context,
+    format_retrieved_sources,
+    load_documents,
+    retrieve,
+)
 from app.skills import get_skill_by_name, load_skills
 
 
@@ -29,6 +35,11 @@ def main() -> None:
         "--use-rag",
         action="store_true",
         help="Include simple local RAG context from knowledge_base.",
+    )
+    parser.add_argument(
+        "--show-rag-context",
+        action="store_true",
+        help="Print full retrieved RAG context when used with --use-rag.",
     )
     args = parser.parse_args()
 
@@ -69,6 +80,10 @@ def main() -> None:
         return
 
     if args.run_skill:
+        if args.show_rag_context and not args.use_rag:
+            console.print(
+                "[yellow]RAG warning:[/yellow] --show-rag-context has no effect without --use-rag."
+            )
         if not args.input_file:
             console.print("[red]Input error:[/red] --input-file is required with --run-skill.")
             return
@@ -86,6 +101,7 @@ def main() -> None:
             selected_skill = get_skill_by_name(skills, args.run_skill)
             memory_text = format_memory_for_prompt(memory)
             retrieved_context = ""
+            retrieved_chunks: list[dict[str, str | int]] = []
             if args.use_rag:
                 documents = load_documents(settings.knowledge_base_dir)
                 chunks = chunk_documents(
@@ -100,6 +116,11 @@ def main() -> None:
                     )
                 else:
                     retrieved_context = format_retrieved_context(retrieved_chunks)
+                    console.print("[cyan]Retrieved sources:[/cyan]")
+                    console.print(format_retrieved_sources(retrieved_chunks))
+                    if args.show_rag_context:
+                        console.print("[cyan]Retrieved context:[/cyan]")
+                        console.print(retrieved_context)
             system_prompt, user_prompt = build_skill_prompt(
                 selected_skill, memory_text, user_input, retrieved_context=retrieved_context
             )
