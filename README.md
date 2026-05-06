@@ -14,9 +14,9 @@ The default target LLM is **GigaChat**.
 
 ## Project Status
 
-## Current Status
+Current Status
 
-The initial repository skeleton has been created.
+The initial repository skeleton is implemented.
 
 Implemented:
 
@@ -31,12 +31,11 @@ Implemented:
 
 ## Next Steps
 
-1. Fix configuration variable naming consistency.
-2. Add GitHub Actions for tests.
-3. Add LICENSE.
-4. Add CONTRIBUTING.md.
-5. Add first real GigaChat integration.
-6. Add first local RAG workflow.
+1. Add GitHub Actions test workflow.
+2. Add LICENSE.
+3. Add CONTRIBUTING.md.
+4. Add first real GigaChat integration.
+5. Add first local RAG workflow.
 
 ---
 
@@ -532,9 +531,8 @@ Recommended immediate next steps:
 
 The initial repository skeleton has already been created.
 
-1. Fix configuration naming consistency.
-2. Add GitHub Actions test workflow.
-3. Add `LICENSE`.
-4. Add `CONTRIBUTING.md`.
-5. Add first real GigaChat integration.
-6. Add first local RAG workflow.
+1. Add GitHub Actions test workflow.
+2. Add `LICENSE`.
+3. Add `CONTRIBUTING.md`.
+4. Add first real GigaChat integration.
+5. Add first local RAG workflow.
