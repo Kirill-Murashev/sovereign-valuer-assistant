@@ -1,0 +1,79 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.crt
+secrets/
+credentials/
+tokens/
+
+# Local runtime data
+logs/
+tmp/
+temp/
+.cache/
+.local/
+*.log
+
+# Local databases and indexes
+*.sqlite
+*.sqlite3
+*.db
+*.duckdb
+chroma/
+qdrant_storage/
+vector_store/
+indexes/
+
+# Local knowledge and memory that may contain private data
+knowledge_base/private/
+knowledge_base/local/
+knowledge_base/raw/
+memory/local/
+memory/private/
+data_hub/db/
+data_hub/local/
+data_hub/private/
+
+# Uploaded or generated working files
+uploads/
+outputs/
+exports/
+reports_private/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cursor / AI assistant local artifacts
+.cursor/rules.local
