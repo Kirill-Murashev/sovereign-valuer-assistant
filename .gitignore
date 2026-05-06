@@ -77,3 +77,6 @@ Thumbs.db
 
 # Cursor / AI assistant local artifacts
 .cursor/rules.local
+
+# Agent handoffs (local-only; not for the public repo)
+handoffs/
