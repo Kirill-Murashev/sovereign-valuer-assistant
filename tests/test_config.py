@@ -6,7 +6,9 @@ def test_get_settings_from_env(monkeypatch):
     monkeypatch.setenv("SVA_ENV", "test")
     monkeypatch.setenv("SVA_LOG_LEVEL", "DEBUG")
     monkeypatch.setenv("SVA_LLM_PROVIDER", "gigachat")
+    monkeypatch.setenv("GIGACHAT_MODEL", "GigaChat-2-Max")
     monkeypatch.setenv("GIGACHAT_VERIFY_SSL", "false")
+    monkeypatch.setenv("GIGACHAT_VERIFY_SSL_CERTS", "true")
     monkeypatch.setenv("SVA_KNOWLEDGE_BASE_DIR", "knowledge_base_custom")
     monkeypatch.setenv("SVA_SKILLS_DIR", "skills_custom")
     monkeypatch.setenv("SVA_MEMORY_DIR", "memory_custom")
@@ -22,7 +24,9 @@ def test_get_settings_from_env(monkeypatch):
     assert settings.sva_env == "test"
     assert settings.sva_log_level == "DEBUG"
     assert settings.sva_llm_provider == "gigachat"
+    assert settings.gigachat_model == "GigaChat-2-Max"
     assert settings.gigachat_verify_ssl is False
+    assert settings.gigachat_verify_ssl_certs is True
     assert settings.knowledge_base_dir == "knowledge_base_custom"
     assert settings.skills_dir == "skills_custom"
     assert settings.memory_dir == "memory_custom"

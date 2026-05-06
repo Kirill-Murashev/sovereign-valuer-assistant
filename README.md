@@ -34,11 +34,10 @@ Implemented:
 
 ## Next Steps
 
-1. Add GitHub Actions test workflow.
-2. Add LICENSE.
-3. Add CONTRIBUTING.md.
-4. Add first real GigaChat integration.
-5. Add first local RAG workflow.
+1. Add first real GigaChat integration.
+2. Add first local RAG workflow.
+3. Add approved memory proposal workflow.
+4. Add first Data Layer tool.
 
 ---
 
@@ -491,12 +490,26 @@ On Windows PowerShell, activation will likely be:
 
 Configuration will be loaded from environment variables.
 
+### LLM smoke test
+
+1. Copy `.env.example` to `.env`.
+2. Set `GIGACHAT_CREDENTIALS` in `.env`.
+3. Run:
+
+```bash
+python -m app.main --smoke-llm
+```
+
+Do not commit `.env`.
+
 A future `.env.example` may include:
 
 ```env
 GIGACHAT_CREDENTIALS=
 GIGACHAT_SCOPE=
+GIGACHAT_MODEL=GigaChat
 GIGACHAT_VERIFY_SSL=false
+GIGACHAT_VERIFY_SSL_CERTS=false
 SVA_ENV=local
 ```
 

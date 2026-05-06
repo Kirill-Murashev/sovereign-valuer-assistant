@@ -30,7 +30,9 @@ class Settings(BaseModel):
     sva_llm_provider: str = Field(default="gigachat")
     gigachat_credentials: str = Field(default="")
     gigachat_scope: str = Field(default="")
+    gigachat_model: str = Field(default="GigaChat")
     gigachat_verify_ssl: bool = Field(default=True)
+    gigachat_verify_ssl_certs: bool = Field(default=False)
     knowledge_base_dir: str = Field(default="knowledge_base")
     skills_dir: str = Field(default="skills")
     memory_dir: str = Field(default="memory")
@@ -52,7 +54,11 @@ def get_settings() -> Settings:
         sva_llm_provider=os.getenv("SVA_LLM_PROVIDER", "gigachat"),
         gigachat_credentials=os.getenv("GIGACHAT_CREDENTIALS", ""),
         gigachat_scope=os.getenv("GIGACHAT_SCOPE", ""),
+        gigachat_model=os.getenv("GIGACHAT_MODEL", "GigaChat"),
         gigachat_verify_ssl=_as_bool(os.getenv("GIGACHAT_VERIFY_SSL"), True),
+        gigachat_verify_ssl_certs=_as_bool(
+            os.getenv("GIGACHAT_VERIFY_SSL_CERTS"), False
+        ),
         knowledge_base_dir=os.getenv("SVA_KNOWLEDGE_BASE_DIR", "knowledge_base"),
         skills_dir=os.getenv("SVA_SKILLS_DIR", "skills"),
         memory_dir=os.getenv("SVA_MEMORY_DIR", "memory"),
