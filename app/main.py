@@ -1,4 +1,4 @@
-"""CLI entry point for Sovereign Valuer Assistant v0.1 skeleton."""
+"""CLI entry point for Sovereign Valuer Assistant v0.2.1."""
 
 from __future__ import annotations
 
@@ -20,6 +20,9 @@ from app.rag import (
     retrieve,
 )
 from app.skills import get_skill_by_name, load_skills
+
+
+APP_VERSION = "v0.2.1"
 
 
 def main() -> None:
@@ -49,7 +52,7 @@ def main() -> None:
     memory = load_memory(settings.memory_dir)
     skills = load_skills(settings.skills_dir)
 
-    table = Table(title="Sovereign Valuer Assistant v0.1 Status")
+    table = Table(title=f"Sovereign Valuer Assistant {APP_VERSION} Status")
     table.add_column("Component")
     table.add_column("Status")
     table.add_row("Environment", settings.sva_env)
@@ -154,4 +157,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
