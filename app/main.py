@@ -122,7 +122,10 @@ def main() -> None:
                         console.print("[cyan]Retrieved context:[/cyan]")
                         console.print(retrieved_context)
             system_prompt, user_prompt = build_skill_prompt(
-                selected_skill, memory_text, user_input, retrieved_context=retrieved_context
+                selected_skill,
+                memory_text,
+                user_input,
+                retrieved_context=retrieved_context,
             )
             result = llm_client.generate(system_prompt=system_prompt, user_prompt=user_prompt)
         except ValueError as exc:

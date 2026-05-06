@@ -1,8 +1,13 @@
+# CI: run pytest on pushes and pull requests to main.
 name: Tests
 
 on:
   push:
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   tests:
@@ -27,5 +32,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest -q
-
+        run: python -m pytest -q
