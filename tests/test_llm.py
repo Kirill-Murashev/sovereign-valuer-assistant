@@ -3,6 +3,7 @@ from types import SimpleNamespace
 import pytest
 
 from app.llm import LLMClient, LLMConfigurationError
+from gigachat.models import MessagesRole
 
 
 def test_llm_client_missing_credentials_raises():
@@ -26,7 +27,10 @@ def test_generate_returns_mocked_assistant_content(monkeypatch):
         def __exit__(self, exc_type, exc, tb):
             return None
 
-        def chat(self, messages):
+        def chat(self, chat):
+            assert len(chat.messages) == 2
+            assert chat.messages[0].role == MessagesRole.SYSTEM
+            assert chat.messages[1].role == MessagesRole.USER
             return SimpleNamespace(
                 choices=[
                     SimpleNamespace(

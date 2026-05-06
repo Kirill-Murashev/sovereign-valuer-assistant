@@ -30,3 +30,12 @@ def load_memory(memory_dir: str | Path) -> dict[str, str]:
 
     return data
 
+
+def format_memory_for_prompt(memory: dict[str, str]) -> str:
+    """Format loaded memory sections as readable prompt context."""
+    parts: list[str] = []
+    for section_name, content in memory.items():
+        title = section_name.replace("_", " ").title()
+        parts.append(f"## {title}\n{content.strip()}")
+    return "\n\n".join(parts).strip()
+

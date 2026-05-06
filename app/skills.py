@@ -61,3 +61,11 @@ def load_skills(skills_dir: str | Path) -> list[dict[str, Any]]:
 
     return loaded
 
+
+def get_skill_by_name(skills: list[dict], name: str) -> dict:
+    """Return a loaded skill by name."""
+    for skill in skills:
+        if skill.get("name") == name:
+            return skill
+    raise ValueError(f"Skill '{name}' was not found in loaded skills.")
+

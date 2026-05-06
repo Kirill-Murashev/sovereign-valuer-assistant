@@ -502,6 +502,17 @@ python -m app.main --smoke-llm
 
 Do not commit `.env`.
 
+### Run a skill
+
+Example:
+
+```bash
+python -m app.main --run-skill report_review --input-file examples/sample_report_fragment.md
+```
+
+This requires `GIGACHAT_CREDENTIALS` in `.env`.
+Use only synthetic or anonymized input examples.
+
 A future `.env.example` may include:
 
 ```env

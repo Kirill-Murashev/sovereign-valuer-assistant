@@ -1,6 +1,6 @@
 import pytest
 
-from app.memory import load_memory
+from app.memory import format_memory_for_prompt, load_memory
 
 
 def test_load_memory_success(tmp_path):
@@ -24,3 +24,15 @@ def test_load_memory_missing_file(tmp_path):
 
     with pytest.raises(FileNotFoundError):
         load_memory(tmp_path)
+
+
+def test_format_memory_for_prompt():
+    memory = {
+        "approved_rules": "Rule A",
+        "project_notes": "Note B",
+    }
+    rendered = format_memory_for_prompt(memory)
+    assert "## Approved Rules" in rendered
+    assert "Rule A" in rendered
+    assert "## Project Notes" in rendered
+    assert "Note B" in rendered

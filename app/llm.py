@@ -6,6 +6,7 @@ Provider-specific integration should stay isolated in this file.
 from __future__ import annotations
 
 from gigachat import GigaChat
+from gigachat.models import Chat, Messages, MessagesRole
 
 
 class LLMConfigurationError(ValueError):
@@ -39,10 +40,12 @@ class LLMClient:
 
     def generate(self, system_prompt: str, user_prompt: str) -> str:
         """Generate assistant text from GigaChat."""
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ]
+        chat = Chat(
+            messages=[
+                Messages(role=MessagesRole.SYSTEM, content=system_prompt),
+                Messages(role=MessagesRole.USER, content=user_prompt),
+            ]
+        )
 
         with GigaChat(
             credentials=self.credentials,
@@ -50,7 +53,7 @@ class LLMClient:
             model=self.model,
             verify_ssl_certs=self.verify_ssl_certs,
         ) as client:
-            response = client.chat(messages)
+            response = client.chat(chat)
 
         content = response.choices[0].message.content
         if not isinstance(content, str):

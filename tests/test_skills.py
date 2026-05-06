@@ -1,6 +1,6 @@
 import pytest
 
-from app.skills import SkillValidationError, load_skills
+from app.skills import SkillValidationError, get_skill_by_name, load_skills
 
 
 def test_load_skills_success(tmp_path):
@@ -35,3 +35,17 @@ description: Missing prompts.
 
     with pytest.raises(SkillValidationError):
         load_skills(tmp_path)
+
+
+def test_get_skill_by_name_success():
+    skills = [
+        {"name": "report_review", "system_prompt": "a", "user_prompt_template": "b"},
+        {"name": "other_skill", "system_prompt": "a", "user_prompt_template": "b"},
+    ]
+    selected = get_skill_by_name(skills, "report_review")
+    assert selected["name"] == "report_review"
+
+
+def test_get_skill_by_name_not_found():
+    with pytest.raises(ValueError):
+        get_skill_by_name([], "missing")

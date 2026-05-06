@@ -3,14 +3,16 @@
 from __future__ import annotations
 
 import argparse
+from pathlib import Path
 
 from rich.console import Console
 from rich.table import Table
 
 from app.config import get_settings
 from app.llm import LLMClient, LLMConfigurationError
-from app.memory import load_memory
-from app.skills import load_skills
+from app.memory import format_memory_for_prompt, load_memory
+from app.prompting import build_skill_prompt
+from app.skills import get_skill_by_name, load_skills
 
 
 def main() -> None:
@@ -20,6 +22,8 @@ def main() -> None:
         action="store_true",
         help="Run a minimal LLM smoke test with configured provider.",
     )
+    parser.add_argument("--run-skill", type=str, help="Run a loaded skill by name.")
+    parser.add_argument("--input-file", type=str, help="Path to UTF-8 input file.")
     args = parser.parse_args()
 
     console = Console()
@@ -37,11 +41,13 @@ def main() -> None:
     table.add_row("Memory Sections Loaded", str(len(memory)))
     table.add_row("Knowledge Base Dir", settings.knowledge_base_dir)
     table.add_row("Data Hub Dir", settings.data_hub_dir)
-    table.add_row("LLM Calls", "enabled only with --smoke-llm")
+    table.add_row("LLM Calls", "enabled with --smoke-llm or --run-skill")
 
     console.print(table)
-    if not args.smoke_llm:
-        console.print("CLI is ready. Use --smoke-llm to test GigaChat integration.")
+    if not args.smoke_llm and not args.run_skill:
+        console.print(
+            "CLI is ready. Use --smoke-llm to test LLM or --run-skill for skill execution."
+        )
         return
 
     try:
@@ -54,6 +60,38 @@ def main() -> None:
         )
     except LLMConfigurationError as exc:
         console.print(f"[red]LLM configuration error:[/red] {exc}")
+        return
+
+    if args.run_skill:
+        if not args.input_file:
+            console.print("[red]Input error:[/red] --input-file is required with --run-skill.")
+            return
+        input_path = Path(args.input_file)
+        if not input_path.exists():
+            console.print(f"[red]Input error:[/red] Input file not found: {input_path}")
+            return
+        try:
+            user_input = input_path.read_text(encoding="utf-8")
+        except Exception as exc:
+            console.print(f"[red]Input error:[/red] Failed to read input file: {exc}")
+            return
+
+        try:
+            selected_skill = get_skill_by_name(skills, args.run_skill)
+            memory_text = format_memory_for_prompt(memory)
+            system_prompt, user_prompt = build_skill_prompt(
+                selected_skill, memory_text, user_input
+            )
+            result = llm_client.generate(system_prompt=system_prompt, user_prompt=user_prompt)
+        except ValueError as exc:
+            console.print(f"[red]Skill error:[/red] {exc}")
+            return
+        except Exception as exc:  # pragma: no cover - runtime/API failure path
+            console.print(f"[red]Skill run failed:[/red] {exc}")
+            return
+
+        console.print(f"[green]Skill '{args.run_skill}' response:[/green]")
+        console.print(result)
         return
 
     try:
