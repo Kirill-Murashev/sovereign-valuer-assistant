@@ -10,7 +10,12 @@ from rich.table import Table
 
 from app.config import get_settings
 from app.llm import LLMClient, LLMConfigurationError
-from app.memory import format_memory_for_prompt, load_memory
+from app.memory import (
+    PROPOSAL_TARGET_SECTIONS,
+    create_memory_proposal,
+    format_memory_for_prompt,
+    load_memory,
+)
 from app.prompting import build_skill_prompt
 from app.rag import (
     chunk_documents,
@@ -44,10 +49,37 @@ def main() -> None:
         action="store_true",
         help="Print full retrieved RAG context when used with --use-rag.",
     )
+    parser.add_argument(
+        "--propose-memory",
+        type=str,
+        default=None,
+        metavar="TEXT",
+        help="Write a proposal file under memory/proposals/ (does not modify approved memory).",
+    )
+    parser.add_argument(
+        "--memory-target-section",
+        type=str,
+        default="project_notes",
+        choices=sorted(PROPOSAL_TARGET_SECTIONS),
+        help="Approved-memory section name for --propose-memory.",
+    )
     args = parser.parse_args()
 
     console = Console()
     settings = get_settings()
+
+    if args.propose_memory is not None:
+        try:
+            proposal_path = create_memory_proposal(
+                settings.memory_dir,
+                args.propose_memory,
+                target_section=args.memory_target_section,
+            )
+        except ValueError as exc:
+            console.print(f"[red]Proposal error:[/red] {exc}")
+            return
+        console.print(f"[green]Memory proposal written:[/green] {proposal_path}")
+        return
 
     memory = load_memory(settings.memory_dir)
     skills = load_skills(settings.skills_dir)
@@ -66,7 +98,7 @@ def main() -> None:
     console.print(table)
     if not args.smoke_llm and not args.run_skill:
         console.print(
-            "CLI is ready. Use --smoke-llm to test LLM or --run-skill for skill execution."
+            "CLI is ready. Use --smoke-llm, --run-skill, or --propose-memory as needed."
         )
         return
 
