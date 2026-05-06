@@ -110,11 +110,11 @@ The first versions should be small, local-first, and easy to understand.
 
 ---
 
-## 6. Core Architectural Decision
+## 6. Core architectural decision
 
 The initial architecture should not start with a heavy autonomous agent framework.
 
-The project should start with a simple controlled architecture:
+The project should start with a **simple, local-first, controlled** architecture:
 
 ```text
 Python application
@@ -438,50 +438,30 @@ This structure may evolve, but only through explicit architectural decisions.
 
 ---
 
-## 14. Initial Roadmap
+## 14. Initial roadmap
 
-### v0.1 — local minimal assistant
+Milestone labels below match the current repository status wording.
 
-Goal: create a local assistant that can talk to GigaChat, load simple skills, read approved memory, and answer basic valuation-related questions.
+### Implemented (reference)
 
-Scope:
+- **v0.1** — Local assistant skeleton: repository structure, configuration, CLI, skill loading, read-only memory loading, tests, documentation.
+- **v0.1.1** — GigaChat smoke path (`--smoke-llm`) using the official SDK.
+- **v0.1.2** — `report_review` skill runner (`--run-skill`) end-to-end through GigaChat.
+- **v0.2 (draft)** — Local deterministic RAG for skill runs (`--use-rag`): chunking and keyword-overlap retrieval over `knowledge_base/` (`.md`/`.txt`).
+- **v0.2.1** — Transparent RAG source output in the CLI (concise sources; `--show-rag-context` for full retrieved context).
 
-- repository structure;
-- README;
-- AGENTS.md;
-- PROJECT_CONTEXT.md;
-- `.env.example`;
-- simple configuration module;
-- simple GigaChat wrapper;
-- CLI entry point;
-- first YAML/Markdown skill;
-- basic memory file loading.
+### v0.3 — approved memory workflow *(next)*
 
-### v0.2 — local RAG
-
-Goal: answer questions using local documents.
+Goal: make memory changes controlled and inspectable.
 
 Scope:
 
-- document ingestion from `knowledge_base/`;
-- support for `.md` and `.txt`;
-- chunking;
-- simple retrieval;
-- source references;
-- basic RAG prompt.
+- continue read-only loading of approved memory;
+- propose candidate memory entries;
+- persist only after explicit user approval;
+- support a simple remember/forget-style workflow or CLI equivalent.
 
-### v0.3 — approved memory workflow
-
-Goal: make memory controlled and inspectable.
-
-Scope:
-
-- read approved memory;
-- propose candidate memory;
-- save only after explicit user approval;
-- support `/remember` and `/forget` style commands or simple equivalents.
-
-### v0.4 — first Data Layer tool
+### v0.4 — first Data Layer tool *(later)*
 
 Goal: integrate one structured valuation data source.
 
@@ -498,9 +478,9 @@ Scope:
 - freshness check;
 - valuation-friendly explanation.
 
-### v0.5 — first practical valuation workflow
+### v0.5 — broader practical valuation workflows
 
-Goal: implement a useful workflow for valuation professionals.
+Goal: deepen useful workflows for valuation professionals.
 
 Possible workflows:
 
@@ -613,50 +593,35 @@ Cursor must read `AGENTS.md` before making changes.
 
 ---
 
-## 19. First Milestone
+## 19. First milestone
 
-The first milestone is:
+The first milestone was:
 
 ```text
 v0.1: local assistant skeleton
 ```
 
-Minimum expected result:
+That milestone is **implemented**. Minimum expectations that were met include repository structure, core documentation, `.env.example`, a starting CLI, configuration loading, YAML skill loading, read-only memory loading, isolated LLM integration in `app/llm.py`, and no committed secrets.
 
-- repository structure exists;
-- `AGENTS.md` exists;
-- `PROJECT_CONTEXT.md` exists;
-- `README.md` exists;
-- `.env.example` exists;
-- basic Python application starts;
-- configuration is loaded;
-- a simple skill can be loaded from `skills/`;
-- memory files can be read from `memory/`;
-- LLM integration is isolated;
-- no secrets are committed.
+Subsequent shipped increments on `main` include **v0.1.1** (GigaChat smoke path), **v0.1.2** (`report_review` skill runner), **v0.2 (draft)** (local deterministic RAG for `--run-skill`), and **v0.2.1** (transparent RAG source output in the CLI).
 
 ---
 
-## 20. Current Status
+## 20. Current status
 
-Current status:
+As of the current `main` branch:
 
-```text
-The repository sovereign-valuer-assistant/ has been created.
-The initial skeleton and core v0.2 draft flow are implemented.
-GigaChat smoke test works with valid credentials and a suitable network route.
-The report_review skill runner is implemented.
---use-rag local knowledge context for skill runs is implemented.
-Current RAG is deterministic keyword retrieval over local .md/.txt files, not vector search.
-Transparent RAG source output is implemented in CLI.
-The project remains a non-production local-first draft.
-```
+- **v0.1** repository skeleton is implemented.
+- **v0.1.1** GigaChat smoke path (`--smoke-llm`) is implemented (requires valid credentials and network access).
+- **v0.1.2** `report_review` skill runner is implemented.
+- **v0.2 (draft)** local deterministic RAG for skill runs is implemented (`--use-rag`); retrieval is keyword overlap over local `.md`/`.txt` files, not vector search.
+- **v0.2.1** transparent retrieved-source listing (and optional full context via `--show-rag-context`) is implemented in the CLI.
+- Approved memory is **read-only** in code paths today; **v0.3** will add an explicit proposal and approval workflow before writes.
+- The **Data Layer** is **planned** under `data_hub/`; **v0.4** targets a first tool such as `get_risk_free_rate(date, maturity_years)`.
 
-Next recommended implementation step:
+The project remains a **non-production**, **local-first** draft: favour simple modules and inspectable behaviour over premature platform complexity.
 
-```text
-Continue controlled v0.2/v0.3 improvements: approved memory proposal workflow, first Data Layer tool, and additional valuation skills.
-```
+**Next recommended implementation focus:** **v0.3** approved memory proposal workflow, then **v0.4** first Data Layer tool, alongside additional valuation skills as needed.
 
 ---
 

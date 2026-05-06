@@ -10,38 +10,41 @@ The project is designed as a practical pet project for building a controlled dig
 
 The default target LLM is **GigaChat**.
 
+Architecture stays **simple and local-first**: inspectable modules, explicit configuration, no heavy agent frameworks in the current codebase.
+
 ---
 
-## Project Status
+## Project status
 
-Current Status
+### Release milestones
 
-The initial repository skeleton is implemented.
+Implemented on `main`:
 
-Implemented:
+| Milestone | Description |
+|-----------|-------------|
+| **v0.1** | Repository skeleton (structure, configuration, skill and memory loading, tests, CI, documentation). |
+| **v0.1.1** | GigaChat smoke path (`--smoke-llm`). |
+| **v0.1.2** | `report_review` skill runner (`--run-skill`). |
+| **v0.2 (draft)** | Local deterministic RAG for skill runs (`--use-rag`) over `.md`/`.txt` in `knowledge_base/`. |
+| **v0.2.1** | Transparent retrieved-source output in the CLI (concise sources by default; `--show-rag-context` for full retrieved text). |
 
-- project documentation;
-- basic Python app structure;
-- configuration loading;
-- skill loading;
-- memory loading;
-- minimal GigaChat SDK client;
-- optional `--smoke-llm`;
-- CLI skill runner for report_review;
-- `--use-rag` local knowledge context for skill runs;
-- simple source-aware local RAG over `.md`/`.txt` files;
-- transparent retrieved source output in CLI (`--show-rag-context` for full context);
-- deterministic tests.
-- GitHub Actions test workflow;
-- Apache License 2.0 (`LICENSE`);
-- contribution guidelines (`CONTRIBUTING.md`).
+Additional hygiene and tooling:
 
-## Next Steps
+- GitHub Actions test workflow  
+- Apache License 2.0 (`LICENSE`)  
+- Contribution guidelines (`CONTRIBUTING.md`)  
+- Deterministic unit tests  
 
-1. Add approved memory proposal workflow.
-2. Add first Data Layer tool.
-3. Add more valuation skills.
-4. Improve deterministic local RAG quality while keeping it inspectable.
+Approved memory is loaded **read-only** from `memory/`; there is no automatic memory writing yet.
+
+Planned next steps:
+
+| Milestone | Description |
+|-----------|-------------|
+| **v0.3** *(next)* | Approved memory proposal workflow (explicit user approval before persisting). |
+| **v0.4** *(later)* | First Data Layer tool (structured valuation data with metadata-rich responses). |
+
+Further improvements after that include more valuation skills and incremental improvements to deterministic local RAG while keeping behaviour inspectable.
 
 ---
 
@@ -62,7 +65,7 @@ The assistant is intended to support professional judgement, not replace it.
 
 ---
 
-## Core Idea
+## Core idea
 
 The project combines five layers:
 
@@ -92,7 +95,7 @@ Give it controlled access to verified knowledge, approved memory, and structured
 
 ---
 
-## Why Local-First?
+## Why local-first?
 
 The project is intended for professionals who need:
 
@@ -111,7 +114,7 @@ Target deployment options:
 
 ---
 
-## Initial Scope
+## Initial scope
 
 The first version should be intentionally simple.
 
@@ -129,7 +132,7 @@ The initial assistant should be able to:
 
 ---
 
-## Non-Goals for the First Version
+## Non-goals for the first version
 
 The first version should **not** try to implement:
 
@@ -148,7 +151,7 @@ The initial implementation should remain simple.
 
 ---
 
-## Planned Repository Structure
+## Planned repository structure
 
 ```text
 sovereign-valuer-assistant/
@@ -176,9 +179,9 @@ sovereign-valuer-assistant/
 
 ---
 
-## Main Components
+## Main components
 
-### 1. LLM Layer
+### 1. LLM layer
 
 The default LLM provider is **GigaChat**.
 
@@ -192,7 +195,7 @@ The rest of the application should not depend directly on provider-specific impl
 
 ---
 
-### 2. Knowledge Layer
+### 2. Knowledge layer
 
 The Knowledge Layer stores professional materials such as:
 
@@ -214,7 +217,7 @@ The Knowledge Layer is intended for RAG-style search and source-grounded answers
 
 ---
 
-### 3. Skills Layer
+### 3. Skills layer
 
 Skills are explicit valuation workflows or reusable prompt packages.
 
@@ -246,7 +249,7 @@ YAML
 
 ---
 
-### 4. Memory Layer
+### 4. Memory layer
 
 The Memory Layer stores approved long-term memory.
 
@@ -278,7 +281,7 @@ The project must not implement uncontrolled self-learning.
 
 ---
 
-### 5. Data Layer
+### 5. Data layer
 
 The Data Layer provides structured valuation data from trusted APIs and local databases.
 
@@ -319,87 +322,25 @@ Example response shape:
 
 ---
 
-## Roadmap
+## Roadmap (high level)
 
-### v0.1 — Local Assistant Skeleton
+### Completed (current branch)
 
-Goal: create a minimal local assistant skeleton.
+- **v0.1** — Local assistant skeleton (structure, config, CLI, skills, read-only memory, tests).
+- **v0.1.1** — GigaChat smoke path.
+- **v0.1.2** — `report_review` skill runner.
+- **v0.2 (draft)** — Local deterministic RAG for `--run-skill` (`--use-rag`).
+- **v0.2.1** — Transparent RAG source output in the CLI.
 
-Planned scope:
+### Planned
 
-- repository structure;
-- configuration loading;
-- isolated LLM wrapper;
-- basic CLI entry point;
-- skill loading;
-- approved memory loading;
-- first example skill;
-- minimal tests.
-
----
-
-### v0.2 — Local RAG
-
-Goal: answer questions using local documents.
-
-Planned scope:
-
-- document ingestion from `knowledge_base/`;
-- support for `.md` and `.txt`;
-- chunking;
-- simple retrieval;
-- source references;
-- RAG prompt template.
+- **v0.3** — Approved memory workflow (proposal + explicit approval before saving).
+- **v0.4** — First Data Layer tool (candidate: `get_risk_free_rate(date, maturity_years)`).
+- **v0.5** — Broader practical valuation workflows (report review depth, standards checks, market analysis support, and similar).
 
 ---
 
-### v0.3 — Approved Memory Workflow
-
-Goal: make memory controlled and inspectable.
-
-Planned scope:
-
-- read approved memory;
-- propose candidate memory;
-- save only after explicit user approval;
-- support simple remember/forget workflow.
-
----
-
-### v0.4 — First Data Layer Tool
-
-Goal: add one structured valuation data tool.
-
-Candidate first tool:
-
-```text
-get_risk_free_rate(date, maturity_years)
-```
-
-Planned scope:
-
-- connector to an API or local mock database;
-- metadata-rich response;
-- freshness check;
-- valuation-friendly explanation.
-
----
-
-### v0.5 — First Practical Valuation Workflow
-
-Goal: implement one useful professional workflow.
-
-Candidate workflows:
-
-- valuation report review;
-- valuation standards compliance check;
-- discount rate support;
-- market analysis support;
-- calculation consistency check.
-
----
-
-## Development Model
+## Development model
 
 The project follows this working model:
 
@@ -425,7 +366,7 @@ README.md
 
 ---
 
-## Rules for Coding Agents
+## Rules for coding agents
 
 Important rules are documented in `AGENTS.md`.
 
@@ -442,7 +383,7 @@ Core rules:
 
 ---
 
-## Security and Privacy
+## Security and privacy
 
 Do not commit:
 
@@ -468,12 +409,10 @@ anonymized samples
 
 ## Installation
 
-Installation instructions will be added when the first runnable version is implemented.
-
-Expected future local setup:
+Local setup:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Kirill-Murashev/sovereign-valuer-assistant.git
 cd sovereign-valuer-assistant
 python -m venv .venv
 source .venv/bin/activate
@@ -482,17 +421,19 @@ cp .env.example .env
 python -m app.main
 ```
 
-On Windows PowerShell, activation will likely be:
+On Windows PowerShell, activate the virtual environment with:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
+Then install dependencies and run `python -m app.main` as above.
+
 ---
 
 ## Configuration
 
-Configuration will be loaded from environment variables.
+Configuration is loaded from environment variables (see `.env.example`).
 
 ### LLM smoke test
 
@@ -514,7 +455,7 @@ Example:
 python -m app.main --run-skill report_review --input-file examples/sample_report_fragment.md
 ```
 
-This requires `GIGACHAT_CREDENTIALS` in `.env`.
+This requires `GIGACHAT_CREDENTIALS` in `.env`.  
 Use only synthetic or anonymized input examples.
 
 ### Run a skill with local RAG
@@ -531,11 +472,11 @@ Optional (show full retrieved context):
 python -m app.main --run-skill report_review --input-file examples/sample_report_fragment.md --use-rag --show-rag-context
 ```
 
-Retrieved sources are shown before the LLM response to support verification.
-Current RAG is simple deterministic keyword retrieval over local `.md`/`.txt` files.
+Retrieved sources are shown before the LLM response to support verification.  
+Current RAG is simple deterministic keyword retrieval over local `.md`/`.txt` files.  
 Vector search and embeddings are intentionally postponed.
 
-A future `.env.example` may include:
+`.env.example` may include:
 
 ```env
 GIGACHAT_CREDENTIALS=
@@ -552,7 +493,7 @@ Do not commit real `.env` files.
 
 ## License
 
-This project is licensed under the Apache License 2.0.
+This project is licensed under the Apache License 2.0.  
 See [LICENSE](LICENSE).
 
 ---
@@ -564,16 +505,3 @@ This project is a professional assistant tool.
 It does not provide legal, valuation, financial, or expert conclusions by itself.
 
 All outputs must be reviewed and approved by a qualified professional before use in valuation reports, expert opinions, court submissions, or client-facing documents.
-
----
-
-## Current Next Steps
-
-Recommended immediate next steps:
-
-The initial repository skeleton has already been created.
-
-1. Add approved memory proposal workflow.
-2. Add first Data Layer tool.
-3. Add more valuation skills.
-4. Improve deterministic local RAG quality while keeping it inspectable.
