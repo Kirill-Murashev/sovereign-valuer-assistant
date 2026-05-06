@@ -28,6 +28,9 @@ Implemented:
 - placeholder LLM client;
 - placeholder RAG module;
 - deterministic tests.
+- GitHub Actions test workflow;
+- Apache License 2.0 (`LICENSE`);
+- contribution guidelines (`CONTRIBUTING.md`).
 
 ## Next Steps
 
@@ -503,15 +506,8 @@ Do not commit real `.env` files.
 
 ## License
 
-License to be decided.
-
-Potential options:
-
-- MIT;
-- Apache-2.0;
-- AGPL-3.0.
-
-For an open-source professional assistant, Apache-2.0 or AGPL-3.0 should be considered carefully before the first public release.
+This project is licensed under the Apache License 2.0.
+See [LICENSE](LICENSE).
 
 ---
 
@@ -531,8 +527,7 @@ Recommended immediate next steps:
 
 The initial repository skeleton has already been created.
 
-1. Add GitHub Actions test workflow.
-2. Add `LICENSE`.
-3. Add `CONTRIBUTING.md`.
-4. Add first real GigaChat integration.
-5. Add first local RAG workflow.
+1. Add first real GigaChat integration.
+2. Add first local RAG workflow.
+3. Add approved memory proposal workflow.
+4. Add first Data Layer tool.
