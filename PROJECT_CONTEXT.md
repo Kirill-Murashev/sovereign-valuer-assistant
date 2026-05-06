@@ -173,7 +173,7 @@ Possible components:
 - `python-dotenv` for environment configuration;
 - `pydantic` for config and schema validation;
 - `pyyaml` for YAML skills;
-- a lightweight local vector store;
+- simple deterministic local retrieval first; vector storage only later if justified;
 - simple document loaders for `.md`, `.txt`, and later `.pdf` / `.docx`.
 
 ### Components to postpone
