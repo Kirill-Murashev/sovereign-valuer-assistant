@@ -6,7 +6,9 @@
 
 Sovereign Valuer Assistant is an open-source, local-first LLM assistant for valuation professionals.
 
-The project is designed as a practical pet project for building a controlled digital assistant that can work with valuation standards, professional knowledge bases, report templates, structured valuation data, and approved long-term memory.
+The project is designed as a practical pet project for building a controlled digital
+assistant that can work with valuation standards, professional knowledge bases,
+report templates, structured valuation data, and approved long-term memory.
 
 The default target LLM is **GigaChat**.
 

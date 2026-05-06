@@ -1,0 +1,11 @@
+# Normalize line endings for cross-platform clones (prevents “collapsed” diffs & CI drift).
+* text=auto
+
+*.py text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.txt text eol=lf
+*.toml text eol=lf
+*.json text eol=lf
+*.sh text eol=lf

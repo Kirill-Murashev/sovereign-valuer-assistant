@@ -8,7 +8,9 @@ Sovereign Valuer Assistant keeps a **simple, local-first** pipeline: one CLI ent
 2. **Settings** (`app/config.py`) — loads environment-based configuration.
 3. **Memory loader** (`app/memory.py`) — reads approved markdown from `memory/` (read-only in the current implementation).
 4. **Skill loader** (`app/skills.py`) — loads and validates YAML skills from `skills/`.
-5. **Optional local RAG** (`app/rag.py`) — when `--use-rag` is used with `--run-skill`, loads and chunks `knowledge_base/` documents, retrieves chunks by deterministic keyword overlap, and formats context for the prompt.
+5. **Optional local RAG** (`app/rag.py`) — when `--use-rag` is used with `--run-skill`,
+   loads and chunks `knowledge_base/` documents, retrieves chunks by deterministic
+   keyword overlap, and formats context for the prompt.
 6. **Prompt builder** (`app/prompting.py`) — combines skill prompts, formatted memory, optional retrieved context, and user input.
 7. **GigaChat LLM client** (`app/llm.py`) — sends system and user messages via the official GigaChat SDK.
 

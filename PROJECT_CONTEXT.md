@@ -601,9 +601,14 @@ The first milestone was:
 v0.1: local assistant skeleton
 ```
 
-That milestone is **implemented**. Minimum expectations that were met include repository structure, core documentation, `.env.example`, a starting CLI, configuration loading, YAML skill loading, read-only memory loading, isolated LLM integration in `app/llm.py`, and no committed secrets.
+That milestone is **implemented**. Minimum expectations that were met include
+repository structure, core documentation, `.env.example`, a starting CLI,
+configuration loading, YAML skill loading, read-only memory loading, isolated LLM
+integration in `app/llm.py`, and no committed secrets.
 
-Subsequent shipped increments on `main` include **v0.1.1** (GigaChat smoke path), **v0.1.2** (`report_review` skill runner), **v0.2 (draft)** (local deterministic RAG for `--run-skill`), and **v0.2.1** (transparent RAG source output in the CLI).
+Subsequent shipped increments on `main` include **v0.1.1** (GigaChat smoke path),
+**v0.1.2** (`report_review` skill runner), **v0.2 (draft)** (local deterministic RAG
+for `--run-skill`), and **v0.2.1** (transparent RAG source output in the CLI).
 
 ---
 

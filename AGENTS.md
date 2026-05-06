@@ -6,7 +6,10 @@ This repository contains **Sovereign Valuer Assistant**.
 
 Codename: **Elessar**.
 
-Sovereign Valuer Assistant is an open-source, local-first pet project for building a personal LLM assistant for valuation professionals. The assistant is intended to support valuation work, report review, standards checking, calculation checking, knowledge retrieval, structured data access, and controlled professional memory.
+Sovereign Valuer Assistant is an open-source, local-first pet project for building
+a personal LLM assistant for valuation professionals. The assistant is intended to
+support valuation work, report review, standards checking, calculation checking,
+knowledge retrieval, structured data access, and controlled professional memory.
 
 The project must remain simple, inspectable, reproducible, and suitable for deployment on a local PC or VPS.
 

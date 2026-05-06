@@ -1,6 +1,8 @@
 # Roadmap (current draft)
 
-This file summarizes release-oriented milestones. The project keeps a **simple local-first architecture** first; heavier storage, embeddings, and orchestration frameworks are out of scope until explicitly needed.
+This file summarizes release-oriented milestones. The project keeps a **simple
+local-first architecture** first; heavier storage, embeddings, and orchestration
+frameworks are out of scope until explicitly needed.
 
 ## Implemented (main branch)
 

@@ -1,6 +1,8 @@
 # Data layer (current draft)
 
-The Data Layer will provide **structured valuation data** with **metadata-rich responses** (value, unit, date, source, freshness, limitations). The LLM must not invent market figures when a data tool is the appropriate source.
+The Data Layer will provide **structured valuation data** with **metadata-rich
+responses** (value, unit, date, source, freshness, limitations). The LLM must not
+invent market figures when a data tool is the appropriate source.
 
 ## Repository layout (planned)
 
@@ -20,4 +22,7 @@ The Data Layer is represented by the `data_hub/` directory structure:
 
 ## Response expectations
 
-Future Data Layer tools should return structured fields such as value, unit, as-of date, source identifier, `updated_at`, staleness flags, and documented limitations—consistent with the project’s “no silent substitution of outdated or guessed data” rule.
+Future Data Layer tools should return structured fields such as value, unit,
+as-of date, source identifier, `updated_at`, staleness flags, and documented
+limitations—consistent with the project’s “no silent substitution of outdated or
+guessed data” rule.
