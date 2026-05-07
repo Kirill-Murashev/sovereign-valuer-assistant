@@ -22,6 +22,8 @@ Architecture stays **simple and local-first**: inspectable modules, explicit con
 
 Implemented on `main`:
 
+Current implemented status is **v0.3 draft**.
+
 | Milestone | Description |
 |-----------|-------------|
 | **v0.1** | Repository skeleton (structure, configuration, skill and memory loading, tests, CI, documentation). |

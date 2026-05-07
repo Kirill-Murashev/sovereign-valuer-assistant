@@ -634,6 +634,8 @@ for `--run-skill`), **v0.2.1** (transparent RAG source output in the CLI), and
 
 As of the current `main` branch:
 
+Current implemented status is **v0.3 draft**.
+
 - **v0.1** repository skeleton is implemented.
 - **v0.1.1** GigaChat smoke path (`--smoke-llm`) is implemented (requires valid credentials and network access).
 - **v0.1.2** `report_review` skill runner is implemented.
