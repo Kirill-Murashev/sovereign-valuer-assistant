@@ -13,6 +13,7 @@ frameworks are out of scope until explicitly needed.
 | **v0.1.2** | `report_review` skill runner: `--run-skill` with prompts built from YAML + read-only memory. |
 | **v0.2 (draft)** | Local deterministic RAG for skill runs: `--use-rag` over `.md`/`.txt` in `knowledge_base/`. |
 | **v0.2.1** | Transparent RAG source output in the CLI (concise sources; `--show-rag-context` for full retrieved context). |
+| **v0.3 (draft)** | Approved memory proposal workflow: `--propose-memory` writes proposal files under `memory/proposals/` without modifying approved memory. |
 
 Also in place: read-only loading of approved memory from `memory/`.
 
@@ -20,10 +21,11 @@ Also in place: read-only loading of approved memory from `memory/`.
 
 | Milestone | Summary |
 |-----------|---------|
-| **v0.3** *(next)* | Approved memory **proposal** workflow: candidate entries require explicit user approval before persisting. |
+| **v0.3.1** *(next)* | Memory proposal review helpers: inspect/list proposals and prepare explicit approval workflow without automatic writes. |
 | **v0.4** *(later)* | First **Data Layer** tool (e.g. `get_risk_free_rate(date, maturity_years)`) with metadata-rich responses. |
 
 ## Later
 
 - Additional valuation skills (beyond `report_review`).
 - Incremental improvements to deterministic local RAG (still inspectable; no mandatory migration to embeddings or vector databases).
+- Structured Data Layer integrations after the memory proposal flow remains controlled and test-covered.
