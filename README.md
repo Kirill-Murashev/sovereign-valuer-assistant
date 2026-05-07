@@ -22,7 +22,7 @@ Architecture stays **simple and local-first**: inspectable modules, explicit con
 
 Implemented on `main`:
 
-Current implemented status is **v0.3 draft**.
+Current implemented status is **v0.3.1 draft**.
 
 | Milestone | Description |
 |-----------|-------------|
@@ -32,6 +32,7 @@ Current implemented status is **v0.3 draft**.
 | **v0.2 (draft)** | Local deterministic RAG for skill runs (`--use-rag`) over `.md`/`.txt` in `knowledge_base/`. |
 | **v0.2.1** | Transparent retrieved-source output in the CLI: concise sources are printed when `--use-rag` is enabled; full retrieved context is printed only with `--show-rag-context`. |
 | **v0.3 (draft)** | Minimal approved memory proposal workflow: `--propose-memory TEXT` with optional `--memory-target-section` writes proposal Markdown files under `memory/proposals/` and does not modify approved memory files automatically. |
+| **v0.3.1 (draft)** | Proposal review helpers are implemented: `--list-memory-proposals` lists proposal files and `--show-memory-proposal PATH` prints a selected proposal, while proposals remain under `memory/proposals/` and no automatic approval/merge is performed. |
 
 Additional hygiene and tooling:
 
@@ -46,7 +47,7 @@ Planned next steps:
 
 | Milestone | Description |
 |-----------|-------------|
-| **v0.3.1** *(next)* | Memory proposal list/inspect/review helpers (proposal management only; no automatic approval/merge). |
+| **v0.3.2** *(next)* | Explicit manual approval design for proposals (still no automatic uncontrolled memory writes). |
 | **v0.4** *(later)* | First Data Layer tool (structured valuation data with metadata-rich responses). |
 
 Further improvements after that include more valuation skills and incremental improvements to deterministic local RAG while keeping behaviour inspectable.
@@ -339,7 +340,7 @@ Example response shape:
 
 ### Planned
 
-- **v0.3.1** — Memory proposal list/inspect/review helpers.
+- **v0.3.2** — Explicit manual approval design for proposals (still no automatic uncontrolled memory writes).
 - **v0.4** — First Data Layer tool (candidate: `get_risk_free_rate(date, maturity_years)`).
 - **v0.5** — Broader practical valuation workflows (report review depth, standards checks, market analysis support, and similar).
 

@@ -468,15 +468,32 @@ Current implemented proposal-stage behavior:
 - proposal files are written under `memory/proposals/`;
 - approved memory files are not modified automatically.
 
-### v0.3.1 — proposal management helpers *(next)*
+### v0.3.1 — proposal management helpers *(draft implemented)*
 
 Goal: improve usability of the proposal-stage workflow without implementing auto-approval.
 
 Scope:
 
-- list existing proposals;
-- inspect proposal content quickly;
-- support explicit review helper commands before any manual merge step.
+- list existing proposals (implemented via `--list-memory-proposals`);
+- inspect proposal content quickly (implemented via `--show-memory-proposal PATH`);
+- keep review actions explicit before any manual merge step.
+
+Current implemented v0.3.1 behavior:
+
+- proposal files remain under `memory/proposals/`;
+- listing and inspection are read-only helper actions;
+- automatic approval/merge into approved memory is not implemented.
+
+### v0.3.2 — explicit manual approval design *(next)*
+
+Goal: define a controlled manual approval process for proposals without introducing
+automatic or uncontrolled memory writes.
+
+Scope:
+
+- specify explicit manual approval steps and guardrails;
+- keep approved memory updates deliberate and auditable;
+- avoid any automatic merge path.
 
 ### v0.4 — first Data Layer tool *(later)*
 
@@ -625,8 +642,9 @@ integration in `app/llm.py`, and no committed secrets.
 
 Subsequent shipped increments on `main` include **v0.1.1** (GigaChat smoke path),
 **v0.1.2** (`report_review` skill runner), **v0.2 (draft)** (local deterministic RAG
-for `--run-skill`), **v0.2.1** (transparent RAG source output in the CLI), and
-**v0.3 (draft)** (memory proposal CLI workflow, proposal stage only).
+for `--run-skill`), **v0.2.1** (transparent RAG source output in the CLI),
+**v0.3 (draft)** (memory proposal CLI workflow, proposal stage only), and
+**v0.3.1 (draft)** (proposal review helper commands).
 
 ---
 
@@ -634,7 +652,7 @@ for `--run-skill`), **v0.2.1** (transparent RAG source output in the CLI), and
 
 As of the current `main` branch:
 
-Current implemented status is **v0.3 draft**.
+Current implemented status is **v0.3.1 draft**.
 
 - **v0.1** repository skeleton is implemented.
 - **v0.1.1** GigaChat smoke path (`--smoke-llm`) is implemented (requires valid credentials and network access).
@@ -642,7 +660,8 @@ Current implemented status is **v0.3 draft**.
 - **v0.2 (draft)** local deterministic RAG for skill runs is implemented (`--use-rag`); retrieval is keyword overlap over local `.md`/`.txt` files, not vector search.
 - **v0.2.1** transparent retrieved-source listing is implemented: sources are printed when `--use-rag` is enabled, and full retrieved context is printed only with `--show-rag-context`.
 - **v0.3 (draft)** memory proposal CLI workflow is implemented: `--propose-memory TEXT` with `--memory-target-section` writes proposal files under `memory/proposals/` and does not modify approved memory files automatically.
-- Automatic approval/merge of proposals is not implemented yet.
+- **v0.3.1 (draft)** proposal review helpers are implemented: `--list-memory-proposals` and `--show-memory-proposal PATH` allow listing/inspection of proposal files under `memory/proposals/`.
+- Automatic approval/merge of proposals into approved memory is not implemented yet.
 - The **Data Layer** is **planned** under `data_hub/`; **v0.4** targets a first tool such as `get_risk_free_rate(date, maturity_years)`.
 
 Architecture and policy constraints remain unchanged:
@@ -656,7 +675,7 @@ Architecture and policy constraints remain unchanged:
 
 The project remains a **non-production**, **local-first** draft: favour simple modules and inspectable behaviour over premature platform complexity.
 
-**Next recommended implementation focus:** **v0.3.1** proposal list/inspect/review helpers, then **v0.4** first Data Layer tool, alongside additional valuation skills as needed.
+**Next recommended implementation focus:** **v0.3.2** explicit manual approval design, then **v0.4** first Data Layer tool, alongside additional valuation skills as needed.
 
 ---
 
