@@ -14,7 +14,9 @@ from app.memory import (
     PROPOSAL_TARGET_SECTIONS,
     create_memory_proposal,
     format_memory_for_prompt,
+    list_memory_proposals,
     load_memory,
+    read_memory_proposal,
 )
 from app.prompting import build_skill_prompt
 from app.rag import (
@@ -63,6 +65,18 @@ def main() -> None:
         choices=sorted(PROPOSAL_TARGET_SECTIONS),
         help="Approved-memory section name for --propose-memory.",
     )
+    parser.add_argument(
+        "--list-memory-proposals",
+        action="store_true",
+        help="List proposal files from memory/proposals/.",
+    )
+    parser.add_argument(
+        "--show-memory-proposal",
+        type=str,
+        default=None,
+        metavar="PATH",
+        help="Show one proposal file from memory/proposals/.",
+    )
     args = parser.parse_args()
 
     console = Console()
@@ -79,6 +93,30 @@ def main() -> None:
             console.print(f"[red]Proposal error:[/red] {exc}")
             return
         console.print(f"[green]Memory proposal written:[/green] {proposal_path}")
+        return
+
+    if args.list_memory_proposals:
+        proposals = list_memory_proposals(settings.memory_dir)
+        if not proposals:
+            console.print("No memory proposals found in memory/proposals/.")
+            return
+        console.print("[cyan]Memory proposals:[/cyan]")
+        for proposal in proposals:
+            console.print(f"- {proposal}")
+        return
+
+    if args.show_memory_proposal is not None:
+        try:
+            proposal_text = read_memory_proposal(
+                settings.memory_dir, args.show_memory_proposal
+            )
+        except ValueError as exc:
+            console.print(f"[red]Proposal error:[/red] {exc}")
+            return
+        except FileNotFoundError as exc:
+            console.print(f"[red]Proposal error:[/red] {exc}")
+            return
+        console.print(proposal_text)
         return
 
     memory = load_memory(settings.memory_dir)
@@ -98,7 +136,8 @@ def main() -> None:
     console.print(table)
     if not args.smoke_llm and not args.run_skill:
         console.print(
-            "CLI is ready. Use --smoke-llm, --run-skill, or --propose-memory as needed."
+            "CLI is ready. Use --smoke-llm, --run-skill, --propose-memory, "
+            "--list-memory-proposals, or --show-memory-proposal as needed."
         )
         return
 

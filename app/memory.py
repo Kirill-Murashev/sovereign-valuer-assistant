@@ -59,6 +59,36 @@ def create_memory_proposal(
     return out_path
 
 
+def list_memory_proposals(memory_dir: str | Path) -> list[Path]:
+    """List proposal Markdown files under memory/proposals/."""
+    proposals_dir = Path(memory_dir) / "proposals"
+    if not proposals_dir.exists():
+        return []
+    return sorted(path for path in proposals_dir.glob("*.md") if path.is_file())
+
+
+def read_memory_proposal(memory_dir: str | Path, proposal_path: str | Path) -> str:
+    """Read one proposal file, allowing only files inside memory/proposals/."""
+    proposals_dir = (Path(memory_dir) / "proposals").resolve()
+    candidate = Path(proposal_path)
+    if not candidate.is_absolute():
+        candidate = (Path.cwd() / candidate).resolve()
+    else:
+        candidate = candidate.resolve()
+
+    try:
+        candidate.relative_to(proposals_dir)
+    except ValueError as exc:
+        raise ValueError(
+            "Proposal path must point to a file inside memory/proposals/."
+        ) from exc
+
+    if not candidate.exists() or not candidate.is_file():
+        raise FileNotFoundError(f"Proposal file not found: {candidate}")
+
+    return candidate.read_text(encoding="utf-8")
+
+
 def load_memory(memory_dir: str | Path) -> dict[str, str]:
     """Load required memory markdown sections from disk."""
     base_path = Path(memory_dir)

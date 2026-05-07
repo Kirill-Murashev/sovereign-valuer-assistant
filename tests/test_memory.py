@@ -6,7 +6,9 @@ from app.memory import (
     MEMORY_FILES,
     create_memory_proposal,
     format_memory_for_prompt,
+    list_memory_proposals,
     load_memory,
+    read_memory_proposal,
 )
 
 
@@ -86,6 +88,43 @@ def test_create_memory_proposal_does_not_modify_approved_files(tmp_path):
 
     for fname, content in before.items():
         assert (tmp_path / fname).read_bytes() == content
+
+
+def test_list_memory_proposals_empty_when_directory_missing(tmp_path):
+    _write_four_memory_files(tmp_path)
+    assert list_memory_proposals(tmp_path) == []
+
+
+def test_list_memory_proposals_returns_created_files(tmp_path):
+    _write_four_memory_files(tmp_path)
+    first = create_memory_proposal(tmp_path, "alpha", target_section="project_notes")
+    second = create_memory_proposal(tmp_path, "beta", target_section="approved_rules")
+    proposals = list_memory_proposals(tmp_path)
+    assert first in proposals
+    assert second in proposals
+    assert len(proposals) == 2
+
+
+def test_read_memory_proposal_success(tmp_path, monkeypatch):
+    _write_four_memory_files(tmp_path)
+    created = create_memory_proposal(tmp_path, "show-me", target_section="project_notes")
+    monkeypatch.chdir(tmp_path)
+    content = read_memory_proposal(tmp_path, created.relative_to(tmp_path))
+    assert "show-me" in content
+
+
+def test_read_memory_proposal_missing_file(tmp_path):
+    _write_four_memory_files(tmp_path)
+    missing = tmp_path / "proposals" / "proposal_missing.md"
+    with pytest.raises(FileNotFoundError, match="Proposal file not found"):
+        read_memory_proposal(tmp_path, missing)
+
+
+def test_read_memory_proposal_rejects_path_outside_proposals(tmp_path):
+    _write_four_memory_files(tmp_path)
+    outside = tmp_path / "memory" / "approved_rules.md"
+    with pytest.raises(ValueError, match="inside memory/proposals"):
+        read_memory_proposal(tmp_path, outside)
 
 
 def test_format_memory_for_prompt():
