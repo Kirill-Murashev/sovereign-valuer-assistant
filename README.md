@@ -28,7 +28,8 @@ Implemented on `main`:
 | **v0.1.1** | GigaChat smoke path (`--smoke-llm`). |
 | **v0.1.2** | `report_review` skill runner (`--run-skill`). |
 | **v0.2 (draft)** | Local deterministic RAG for skill runs (`--use-rag`) over `.md`/`.txt` in `knowledge_base/`. |
-| **v0.2.1** | Transparent retrieved-source output in the CLI (concise sources by default; `--show-rag-context` for full retrieved text). |
+| **v0.2.1** | Transparent retrieved-source output in the CLI: concise sources are printed when `--use-rag` is enabled; full retrieved context is printed only with `--show-rag-context`. |
+| **v0.3 (draft)** | Minimal approved memory proposal workflow: `--propose-memory TEXT` with optional `--memory-target-section` writes proposal Markdown files under `memory/proposals/` and does not modify approved memory files automatically. |
 
 Additional hygiene and tooling:
 
@@ -37,13 +38,13 @@ Additional hygiene and tooling:
 - Contribution guidelines (`CONTRIBUTING.md`)  
 - Deterministic unit tests  
 
-Approved memory is loaded **read-only** from `memory/`; there is no automatic memory writing yet.
+Approved memory remains controlled: section files in `memory/` are still loaded read-only by default, and proposal creation does not merge or auto-write approved memory.
 
 Planned next steps:
 
 | Milestone | Description |
 |-----------|-------------|
-| **v0.3** *(next)* | Approved memory proposal workflow (explicit user approval before persisting). |
+| **v0.3.1** *(next)* | Memory proposal list/inspect/review helpers (proposal management only; no automatic approval/merge). |
 | **v0.4** *(later)* | First Data Layer tool (structured valuation data with metadata-rich responses). |
 
 Further improvements after that include more valuation skills and incremental improvements to deterministic local RAG while keeping behaviour inspectable.
@@ -336,7 +337,7 @@ Example response shape:
 
 ### Planned
 
-- **v0.3** — Approved memory workflow (proposal + explicit approval before saving).
+- **v0.3.1** — Memory proposal list/inspect/review helpers.
 - **v0.4** — First Data Layer tool (candidate: `get_risk_free_rate(date, maturity_years)`).
 - **v0.5** — Broader practical valuation workflows (report review depth, standards checks, market analysis support, and similar).
 
@@ -377,6 +378,10 @@ Core rules:
 - do not redesign the architecture without explicit instruction;
 - do not introduce unnecessary frameworks;
 - do not replace GigaChat as the default LLM;
+- do not add OpenAI/Anthropic fallback paths as implicit defaults;
+- do not implement silent provider fallback if GigaChat is unavailable;
+- do not introduce LangChain, LangGraph, GigaChain, LiteLLM, Hermes, OpenClaw, CrewAI, or AutoGen in current scope;
+- do not introduce embeddings, vector databases, or BM25 in current scope;
 - do not implement uncontrolled self-learning;
 - do not commit secrets;
 - do not commit confidential valuation data;

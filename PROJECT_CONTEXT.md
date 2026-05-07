@@ -450,16 +450,33 @@ Milestone labels below match the current repository status wording.
 - **v0.2 (draft)** — Local deterministic RAG for skill runs (`--use-rag`): chunking and keyword-overlap retrieval over `knowledge_base/` (`.md`/`.txt`).
 - **v0.2.1** — Transparent RAG source output in the CLI (concise sources; `--show-rag-context` for full retrieved context).
 
-### v0.3 — approved memory workflow *(next)*
+### v0.3 — approved memory workflow *(draft implemented)*
 
 Goal: make memory changes controlled and inspectable.
 
 Scope:
 
 - continue read-only loading of approved memory;
-- propose candidate memory entries;
+- propose candidate memory entries (implemented via CLI proposals);
 - persist only after explicit user approval;
 - support a simple remember/forget-style workflow or CLI equivalent.
+
+Current implemented proposal-stage behavior:
+
+- `python -m app.main --propose-memory "..."` creates a proposal file;
+- `--memory-target-section` selects one of approved memory sections;
+- proposal files are written under `memory/proposals/`;
+- approved memory files are not modified automatically.
+
+### v0.3.1 — proposal management helpers *(next)*
+
+Goal: improve usability of the proposal-stage workflow without implementing auto-approval.
+
+Scope:
+
+- list existing proposals;
+- inspect proposal content quickly;
+- support explicit review helper commands before any manual merge step.
 
 ### v0.4 — first Data Layer tool *(later)*
 
@@ -608,7 +625,8 @@ integration in `app/llm.py`, and no committed secrets.
 
 Subsequent shipped increments on `main` include **v0.1.1** (GigaChat smoke path),
 **v0.1.2** (`report_review` skill runner), **v0.2 (draft)** (local deterministic RAG
-for `--run-skill`), and **v0.2.1** (transparent RAG source output in the CLI).
+for `--run-skill`), **v0.2.1** (transparent RAG source output in the CLI), and
+**v0.3 (draft)** (memory proposal CLI workflow, proposal stage only).
 
 ---
 
@@ -620,13 +638,23 @@ As of the current `main` branch:
 - **v0.1.1** GigaChat smoke path (`--smoke-llm`) is implemented (requires valid credentials and network access).
 - **v0.1.2** `report_review` skill runner is implemented.
 - **v0.2 (draft)** local deterministic RAG for skill runs is implemented (`--use-rag`); retrieval is keyword overlap over local `.md`/`.txt` files, not vector search.
-- **v0.2.1** transparent retrieved-source listing (and optional full context via `--show-rag-context`) is implemented in the CLI.
-- Approved memory is **read-only** in code paths today; **v0.3** will add an explicit proposal and approval workflow before writes.
+- **v0.2.1** transparent retrieved-source listing is implemented: sources are printed when `--use-rag` is enabled, and full retrieved context is printed only with `--show-rag-context`.
+- **v0.3 (draft)** memory proposal CLI workflow is implemented: `--propose-memory TEXT` with `--memory-target-section` writes proposal files under `memory/proposals/` and does not modify approved memory files automatically.
+- Automatic approval/merge of proposals is not implemented yet.
 - The **Data Layer** is **planned** under `data_hub/`; **v0.4** targets a first tool such as `get_risk_free_rate(date, maturity_years)`.
+
+Architecture and policy constraints remain unchanged:
+
+- GigaChat remains the default LLM provider.
+- No OpenAI/Anthropic default fallback and no silent provider fallback.
+- No LangChain, LangGraph, GigaChain, LiteLLM, Hermes, OpenClaw, CrewAI, or AutoGen in current scope.
+- No vector DB, embeddings, or BM25 in current scope.
+- No uncontrolled self-learning.
+- No confidential real-world data in the public repository.
 
 The project remains a **non-production**, **local-first** draft: favour simple modules and inspectable behaviour over premature platform complexity.
 
-**Next recommended implementation focus:** **v0.3** approved memory proposal workflow, then **v0.4** first Data Layer tool, alongside additional valuation skills as needed.
+**Next recommended implementation focus:** **v0.3.1** proposal list/inspect/review helpers, then **v0.4** first Data Layer tool, alongside additional valuation skills as needed.
 
 ---
 
