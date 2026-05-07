@@ -1,4 +1,4 @@
-"""CLI entry point for Sovereign Valuer Assistant v0.2.1."""
+"""CLI entry point for Sovereign Valuer Assistant v0.3 draft."""
 
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ from app.rag import (
 from app.skills import get_skill_by_name, load_skills
 
 
-APP_VERSION = "v0.2.1"
+APP_VERSION = "v0.3 draft"
 
 
 def main() -> None:
