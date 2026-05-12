@@ -43,12 +43,13 @@ Additional hygiene and tooling:
 
 Approved memory remains controlled: section files in `memory/` are still loaded read-only by default, and proposal creation does not merge or auto-write approved memory.
 
+Manual review policy for proposals (v0.3.2 design, **documentation only**): [docs/memory_approval_workflow.md](docs/memory_approval_workflow.md).
+
 Planned next steps:
 
 | Milestone | Description |
 |-----------|-------------|
-| **v0.3.2** *(next)* | Explicit manual approval design for proposals (still no automatic uncontrolled memory writes). |
-| **v0.4** *(later)* | First Data Layer tool (structured valuation data with metadata-rich responses). |
+| **v0.4** *(next)* | First Data Layer tool (structured valuation data with metadata-rich responses). |
 
 Further improvements after that include more valuation skills and incremental improvements to deterministic local RAG while keeping behaviour inspectable.
 
@@ -340,7 +341,7 @@ Example response shape:
 
 ### Planned
 
-- **v0.3.2** — Explicit manual approval design for proposals (still no automatic uncontrolled memory writes).
+- **v0.3.2** — Explicit manual memory approval workflow documented (`docs/memory_approval_workflow.md`); optional approval/merge CLI remains future work.
 - **v0.4** — First Data Layer tool (candidate: `get_risk_free_rate(date, maturity_years)`).
 - **v0.5** — Broader practical valuation workflows (report review depth, standards checks, market analysis support, and similar).
 

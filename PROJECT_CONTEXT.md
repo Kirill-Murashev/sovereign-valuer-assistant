@@ -484,16 +484,23 @@ Current implemented v0.3.1 behavior:
 - listing and inspection are read-only helper actions;
 - automatic approval/merge into approved memory is not implemented.
 
-### v0.3.2 — explicit manual approval design *(next)*
+### v0.3.2 — explicit manual approval design *(design documented)*
 
 Goal: define a controlled manual approval process for proposals without introducing
 automatic or uncontrolled memory writes.
 
-Scope:
+Authoritative design document:
+
+- [`docs/memory_approval_workflow.md`](docs/memory_approval_workflow.md)
+
+Scope (documentation milestone):
 
 - specify explicit manual approval steps and guardrails;
 - keep approved memory updates deliberate and auditable;
 - avoid any automatic merge path.
+
+Optional future work (not implemented): CLI helpers such as `--approve-memory-proposal`
+remain candidates only; see the design doc.
 
 ### v0.4 — first Data Layer tool *(later)*
 
@@ -661,6 +668,7 @@ Current implemented status is **v0.3.1 draft**.
 - **v0.2.1** transparent retrieved-source listing is implemented: sources are printed when `--use-rag` is enabled, and full retrieved context is printed only with `--show-rag-context`.
 - **v0.3 (draft)** memory proposal CLI workflow is implemented: `--propose-memory TEXT` with `--memory-target-section` writes proposal files under `memory/proposals/` and does not modify approved memory files automatically.
 - **v0.3.1 (draft)** proposal review helpers are implemented: `--list-memory-proposals` and `--show-memory-proposal PATH` allow listing/inspection of proposal files under `memory/proposals/`.
+- **v0.3.2** manual memory approval workflow is **documented** in `docs/memory_approval_workflow.md` (design only; no approval/merge CLI).
 - Automatic approval/merge of proposals into approved memory is not implemented yet.
 - The **Data Layer** is **planned** under `data_hub/`; **v0.4** targets a first tool such as `get_risk_free_rate(date, maturity_years)`.
 
@@ -675,7 +683,7 @@ Architecture and policy constraints remain unchanged:
 
 The project remains a **non-production**, **local-first** draft: favour simple modules and inspectable behaviour over premature platform complexity.
 
-**Next recommended implementation focus:** **v0.3.2** explicit manual approval design, then **v0.4** first Data Layer tool, alongside additional valuation skills as needed.
+**Next recommended implementation focus:** **v0.4** first Data Layer tool, alongside additional valuation skills as needed. Optional future CLI for proposal approve/reject/archive remains out of scope until explicitly planned.
 
 ---
 
