@@ -23,7 +23,7 @@ Also in place: read-only loading of approved memory from `memory/`.
 
 | Milestone | Summary |
 |-----------|---------|
-| **v0.4** *(next)* | First **Data Layer** tool (e.g. `get_risk_free_rate(date, maturity_years)`) with metadata-rich responses. |
+| **v0.4** *(next)* | First **Data Layer** tool: `get_risk_free_rate(date, maturity_years)` — design in [`docs/data_layer_risk_free_rate.md`](data_layer_risk_free_rate.md); **code not implemented yet**. |
 
 ## Later
 

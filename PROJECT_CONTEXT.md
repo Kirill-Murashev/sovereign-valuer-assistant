@@ -402,6 +402,8 @@ A typical Data Layer response should include:
 
 The assistant must not invent market data when a data tool is required.
 
+First tool design (v0.4, **not implemented**): [docs/data_layer_risk_free_rate.md](docs/data_layer_risk_free_rate.md).
+
 ---
 
 ## 13. Initial Repository Structure
@@ -502,9 +504,11 @@ Scope (documentation milestone):
 Optional future work (not implemented): CLI helpers such as `--approve-memory-proposal`
 remain candidates only; see the design doc.
 
-### v0.4 — first Data Layer tool *(later)*
+### v0.4 — first Data Layer tool *(later; design documented)*
 
 Goal: integrate one structured valuation data source.
+
+Design reference (not implemented): [`docs/data_layer_risk_free_rate.md`](docs/data_layer_risk_free_rate.md).
 
 Suggested first tool:
 
@@ -670,7 +674,7 @@ Current implemented status is **v0.3.1 draft**.
 - **v0.3.1 (draft)** proposal review helpers are implemented: `--list-memory-proposals` and `--show-memory-proposal PATH` allow listing/inspection of proposal files under `memory/proposals/`.
 - **v0.3.2** manual memory approval workflow is **documented** in `docs/memory_approval_workflow.md` (design only; no approval/merge CLI).
 - Automatic approval/merge of proposals into approved memory is not implemented yet.
-- The **Data Layer** is **planned** under `data_hub/`; **v0.4** targets a first tool such as `get_risk_free_rate(date, maturity_years)`.
+- The **Data Layer** is **planned** under `data_hub/`; **v0.4** targets a first tool such as `get_risk_free_rate(date, maturity_years)` — see `docs/data_layer_risk_free_rate.md` for the current design (**implementation not started**).
 
 Architecture and policy constraints remain unchanged:
 

@@ -49,7 +49,7 @@ Planned next steps:
 
 | Milestone | Description |
 |-----------|-------------|
-| **v0.4** *(next)* | First Data Layer tool (structured valuation data with metadata-rich responses). |
+| **v0.4** *(next)* | First Data Layer tool: `get_risk_free_rate(date, maturity_years)` — design in [docs/data_layer_risk_free_rate.md](docs/data_layer_risk_free_rate.md); **implementation not started**. |
 
 Further improvements after that include more valuation skills and incremental improvements to deterministic local RAG while keeping behaviour inspectable.
 
@@ -313,6 +313,8 @@ Possible data sources and tools:
 
 Data tools should return metadata, not only raw numbers.
 
+First Data Layer tool design (v0.4, **not implemented**): [docs/data_layer_risk_free_rate.md](docs/data_layer_risk_free_rate.md).
+
 Example response shape:
 
 ```json
@@ -342,7 +344,7 @@ Example response shape:
 ### Planned
 
 - **v0.3.2** — Explicit manual memory approval workflow documented (`docs/memory_approval_workflow.md`); optional approval/merge CLI remains future work.
-- **v0.4** — First Data Layer tool (candidate: `get_risk_free_rate(date, maturity_years)`).
+- **v0.4** — First Data Layer tool (candidate: `get_risk_free_rate(date, maturity_years)`); design: [docs/data_layer_risk_free_rate.md](docs/data_layer_risk_free_rate.md).
 - **v0.5** — Broader practical valuation workflows (report review depth, standards checks, market analysis support, and similar).
 
 ---
