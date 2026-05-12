@@ -1,0 +1,5 @@
+date,maturity_years,value,unit,updated_at,source,notes
+2026-05-06,1,12.0,% per annum,2026-05-06T12:00:00Z,local_fixture:risk_free_rate_sample_v1,Synthetic sample data for tests; not a live market feed.
+2026-05-06,3,13.0,% per annum,2026-05-06T12:00:00Z,local_fixture:risk_free_rate_sample_v1,Synthetic sample data for tests; not a live market feed.
+2026-05-06,5,14.0,% per annum,2026-05-06T12:00:00Z,local_fixture:risk_free_rate_sample_v1,Synthetic sample data for tests; not a live market feed.
+2026-05-06,10,15.0,% per annum,2026-05-06T12:00:00Z,local_fixture:risk_free_rate_sample_v1,Synthetic sample data for tests; not a live market feed.
